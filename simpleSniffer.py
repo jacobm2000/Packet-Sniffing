@@ -1,7 +1,7 @@
 from scapy.all import *
 import pandas as pd
 from datetime import datetime
-pc=input("Do you want to choose a tcp port yes(Y)or no(N)\n") 
+pc=input("Do you want to choose a port yes(Y)or no(N)\n") 
 num=input("How many packets do you want to capture \n") 
 table=pd.DataFrame(columns=['Time','src','dst'])
 pd.set_option('display.max_rows', None) ## allows all rows of the table to be printed to output
@@ -13,10 +13,17 @@ table.style.set_table_styles({
     'th': {'text-align': 'center'}  # Center the headers
 })
 
-if(pc=="Y"):
-    port= input("what tcp port you want to sniff \n")
+if(pc.lower()=="y"):
+    selected=False## keeps track of wheather user properly selects tcp or udp
+    while(selected==False):
+        tu=input("Choose udp or tcp for port type\n")#figures out if the user wants tcp or udp
+        if(str(tu.lower())!="tcp" and str(tu.lower())!="udp"):
+          print("please choose either tcp or udp")
+        else:
+            selected=True
+    port= input("what "+tu +" port you want to sniff \n")
     print("Capturing packets, press crtl+C to exit")
-    packets= sniff(filter="tcp port "+port,count=int(num))
+    packets= sniff(filter=tu+ " port "+port,count=int(num))
 else:
     packets= sniff(count=int(num))
     print("Capturing packets, press crtl+C to exit")
