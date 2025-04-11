@@ -43,3 +43,10 @@ for pkt in packets:
            table.loc[len(table)]=[time,pkt[IP].src+ ":UDP ",pkt[IP].dst + ":UDP "+str(dst_port)]
           
 print(table)
+
+# gets answer from user to see if they eant to save to pcap
+saveOrNot=input("do you want to save the output to a pcap file Yes(Y) or No(N) \n")
+if(saveOrNot.lower()=="y"):
+    fName=input("What do you want to Name this File (Please input just file name with no extension)\n")
+    wrpcap(fName+".pcap", packets)
+    print("File Saved as "+fName+".pcap")
