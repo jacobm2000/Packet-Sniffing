@@ -5,7 +5,7 @@ from datetime import datetime
 
 done=False#keeps track of weather the user wants to continue the program or not
 while(done==False):
-    pc=input("Do you want to choose a port yes(Y)or no(N)\n") 
+    pc=input("Do you want to choose filter by tcp or udp yes(Y)or no(N)\n") 
     num=input("How many packets do you want to capture \n") 
     table=pd.DataFrame(columns=['Time','src','dst'])
     pd.set_option('display.max_rows', None) ## allows all rows of the table to be printed to output
@@ -25,9 +25,15 @@ while(done==False):
               print("please choose either tcp or udp")
             else:
                 selected=True
-        port= input("what "+tu +" port you want to sniff \n")
-        print("Capturing packets, press crtl+C to exit")
-        packets= sniff(filter=tu+ " port "+port,count=int(num))
+        portOrNot=input("Do you want to filter a specific port Yes(Y) or No(N)")
+        if(portOrNot.lower()=="y"): 
+            port= input("what "+tu +" port you want to sniff \n")
+            print("Capturing packets, press crtl+C to exit")
+            packets= sniff(filter=tu+ " port "+port,count=int(num))
+        else:
+            packets= sniff(filter=tu,count=int(num))
+        
+        
     else:
         packets= sniff(count=int(num))
         print("Capturing packets, press crtl+C to exit")
