@@ -29,20 +29,21 @@ while(done==False):
         'th': {'text-align': 'center'}  # Center the headers
     })
     
-    if(pc.lower()=="y"):
+    if(pc.strip().lower()=="y"):
         selected=False## keeps track of wheather user properly selects tcp or udp
         while(selected==False):
             tu=input("Choose udp or tcp for port type\n")#figures out if the user wants tcp or udp
-            if(str(tu.lower())!="tcp" and str(tu.lower())!="udp"):
+            if(str(tu.strip().lower())!="tcp" and str(tu.strip().lower())!="udp"):
               print("please choose either tcp or udp")
             else:
                 selected=True
         portOrNot=input("Do you want to filter a specific port Yes(Y) or No(N)")
-        if(portOrNot.lower()=="y"): 
+        if(portOrNot.strip().lower()=="y"): 
             port= input("what "+tu +" port you want to sniff \n")
             print("Capturing packets, press crtl+C to exit")
             packets= sniff(filter=tu+ " port "+port,count=int(num))
         else:
+            print("Capturing packets, press crtl+C to exit")
             packets= sniff(filter=tu,count=int(num))
         
         
@@ -68,7 +69,7 @@ while(done==False):
     
     # gets answer from user to see if they eant to save to pcap
     saveOrNot=input("do you want to save the output to a pcap file Yes(Y) or No(N) \n")
-    if(saveOrNot.lower()=="y"):
+    if(saveOrNot.strip().lower()=="y"):
         fName=input("What do you want to Name this File (Please input just file name with no extension)\n")
         wrpcap(fName+".pcap", packets)
         print("File Saved as "+fName+".pcap")
