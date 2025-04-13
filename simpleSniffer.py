@@ -6,7 +6,19 @@ from datetime import datetime
 done=False#keeps track of weather the user wants to continue the program or not
 while(done==False):
     pc=input("Do you want to choose filter by tcp or udp yes(Y)or no(N)\n") 
-    num=input("How many packets do you want to capture \n") 
+    gettingPacketNum=True
+    
+    #this loop asks the user for the number of packets, and if it is not a integer value it will try again
+    while(gettingPacketNum):
+        num=input("How many packets do you want to capture \n")
+        #if the value of the input is an integer than it is valid and the program can continue
+        # if not an error message will display and the user will be propted for input again
+        try:
+            int(num)
+            gettingPacketNum=False
+        except:
+            print("please input an integer value for the number of packets you want to capture")
+            
     table=pd.DataFrame(columns=['Time','src','dst'])
     pd.set_option('display.max_rows', None) ## allows all rows of the table to be printed to output
     
@@ -35,8 +47,8 @@ while(done==False):
         
         
     else:
-        packets= sniff(count=int(num))
         print("Capturing packets, press crtl+C to exit")
+        packets= sniff(count=int(num))
     print("\n Packet Summary")
     for pkt in packets:
         if IP in pkt:
@@ -44,13 +56,13 @@ while(done==False):
                 src_port = pkt[TCP].sport
                 dst_port = pkt[TCP].dport
                 time=datetime.utcfromtimestamp(pkt[IP].time).strftime('%Y-%m-%d %H:%M:%S')
-                table.loc[len(table)]=[time,pkt[IP].src+ ":TCP ",pkt[IP].dst + ":TCP "+str(dst_port)]
+                table.loc[len(table)]=[time,pkt[IP].src+ ":TCP "+str(src_port),pkt[IP].dst + ":TCP "+str(dst_port)]
                 
            elif UDP in pkt:
                src_port = pkt[UDP].sport
                dst_port = pkt[UDP].dport
                time=datetime.utcfromtimestamp(pkt[IP].time).strftime('%Y-%m-%d %H:%M:%S')
-               table.loc[len(table)]=[time,pkt[IP].src+ ":UDP ",pkt[IP].dst + ":UDP "+str(dst_port)]
+               table.loc[len(table)]=[time,pkt[IP].src+ ":UDP "+str(src_port),pkt[IP].dst + ":UDP "+str(dst_port)]
               
     print(table)
     
@@ -63,3 +75,4 @@ while(done==False):
     doneYet=input("do You want to do another capture Yes(Y) or NO(N)\n ")
     if(doneYet.lower()=="n"):
         done=True
+        print("Program Terminated. Have a Great Day")
