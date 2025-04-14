@@ -19,7 +19,7 @@ while(done==False):
         except:
             print("please input an integer value for the number of packets you want to capture")
             
-    table=pd.DataFrame(columns=['Time','src','dst'])
+    table=pd.DataFrame(columns=['Time','src','dst','flags','size(bytes)'])
     pd.set_option('display.max_rows', None) ## allows all rows of the table to be printed to output
     
     #center aligns the column headers
@@ -56,14 +56,16 @@ while(done==False):
            if TCP in pkt:
                 src_port = pkt[TCP].sport
                 dst_port = pkt[TCP].dport
+                flags=pkt[TCP].flags
+                flag_str= flags.flagrepr()
                 time=datetime.utcfromtimestamp(pkt[IP].time).strftime('%Y-%m-%d %H:%M:%S')
-                table.loc[len(table)]=[time,pkt[IP].src+ ":TCP "+str(src_port),pkt[IP].dst + ":TCP "+str(dst_port)]
+                table.loc[len(table)]=[time,pkt[IP].src+ ":TCP "+str(src_port),pkt[IP].dst + ":TCP "+str(dst_port),flag_str,len(pkt)]
                 
            elif UDP in pkt:
                src_port = pkt[UDP].sport
                dst_port = pkt[UDP].dport
                time=datetime.utcfromtimestamp(pkt[IP].time).strftime('%Y-%m-%d %H:%M:%S')
-               table.loc[len(table)]=[time,pkt[IP].src+ ":UDP "+str(src_port),pkt[IP].dst + ":UDP "+str(dst_port)]
+               table.loc[len(table)]=[time,pkt[IP].src+ ":UDP "+str(src_port),pkt[IP].dst + ":UDP "+str(dst_port),"N/A",len(pkt)]
               
     print(table)
     
