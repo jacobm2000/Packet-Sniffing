@@ -6,7 +6,8 @@ This tool allows you to capture, filter, and summarize packets from your network
 ---
 
 ## Features
-
+- **Live Sniffing**: Capture packets in real time.
+- **Batch Smiffing**: Capture a set number of packets in batches.
 - **Protocol Filtering**: Capture only `TCP`, `UDP`, or all packets.
 - **Port Filtering**: Target a specific port or let it sniff freely.
 - **Custom Packet Limits**: Specify how many packets you want to capture.
@@ -32,4 +33,4 @@ This tool allows you to capture, filter, and summarize packets from your network
 Run the script with:
 
 ```bash
-python packet_sniffer.py
+python main.py
