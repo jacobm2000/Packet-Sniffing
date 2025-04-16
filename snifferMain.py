@@ -1,6 +1,9 @@
 
 from liveSniffer import runLiveSniff
 from batchSniff import runBatchSniff
+import os
+
+
 
 #keep Track of wheather or not it has recived a valid choice fromt he user
 
@@ -19,4 +22,6 @@ def snifferMain():
         else:
             print("Invalid input \n")
 if __name__ == "__main__":
+    os.makedirs("summaries", exist_ok=True)
+    os.makedirs("pcaps", exist_ok=True)
     snifferMain()

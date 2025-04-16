@@ -84,13 +84,17 @@ def runBatchSniff():
             print("No Packets were captured while sniffing.")
         else:
             # gets answer from user to see if they want to save to pcap
-            saveOrNot=input("Do you want to save the output to a pcap file Yes(Y) or No(N) \n")
-            if(saveOrNot.strip().lower()=="y"):
+            savePcap=input("Do you want to save the output to a pcap file Yes(Y) or No(N) \n")
+            if(savePcap.strip().lower()=="y"):
                 fName=input("What do you want to Name this File (Please input just file name with no extension)\n")
-                wrpcap(fName+".pcap", packets)
+                wrpcap(f"pcaps/{fName}.pcap", packets)
                 print("File Saved as "+fName+".pcap")
-        
-        
+            saveCSV=input("Do you want to save the summary to a csv file Yes(Y) or No(N) \n")
+            if(saveCSV.strip().lower()=="y"):
+                fName=input("What do you want to Name this File (Please input just file name with no extension)\n")
+                table.to_csv(f"summaries/{fName}.csv", index=False)
+                print(f"Summary saved as summaries/{fName}.csv")
+                print("File Saved as "+fName+".csv")
         
         doneYet=input("Do you want to do another capture Yes(Y) or NO(N)\n ")
         if(doneYet.lower()=="n"):
