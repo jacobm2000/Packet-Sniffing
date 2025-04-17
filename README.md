@@ -14,6 +14,7 @@ This tool allows you to capture, filter, and summarize packets from your network
 - **Timeout Control**: Set how long the sniffer will run if the packet count isn’t met.
 - **User-Friendly Summary**: Displays packet information in a clean Pandas DataFrame.
 - **PCAP Export**: Save your captured packets for later analysis using tools like Wireshark.
+- **CSV Export**: Save Summaries of batched packet captures to csv files.
 - **Loop Mode**: Run multiple captures back-to-back without restarting the program.
 
 ---
