@@ -94,7 +94,7 @@ def runBatchSniff():
                 fName=input("What do you want to Name this File (Please input just file name with no extension)\n")
                 table.to_csv(f"summaries/{fName}.csv", index=False)
                 print(f"Summary saved as summaries/{fName}.csv")
-                print("File Saved as "+fName+".csv")
+                
         
         doneYet=input("Do you want to do another capture Yes(Y) or NO(N)\n ")
         if(doneYet.lower()=="n"):
