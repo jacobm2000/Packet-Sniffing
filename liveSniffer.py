@@ -17,7 +17,8 @@ def runLiveSniff():
                     print(f"[{count}][TCP] {pkt[IP].src}:{pkt[TCP].sport} -> {pkt[IP].dst}:{pkt[TCP].dport}")
             elif UDP in pkt:
                     print(f"[{count}][UDP] {pkt[IP].src}:{pkt[UDP].sport} -> {pkt[IP].dst}:{pkt[UDP].dport}")
-    
+            if DNS in pkt and pkt[DNS].qd is not None:
+                  print(f"[DNS] {pkt[IP].src} -> {pkt[IP].dst} : {pkt[DNS].qd.qname.decode()}")
     print("To Stop Sniffing Press Ctrl+C")
     sniff(prn=packet_callback, filter="ip or arp", store=False)
     print(f"{count} packets captured")

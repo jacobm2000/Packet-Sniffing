@@ -6,9 +6,9 @@ This tool allows you to capture, filter, and summarize packets from your network
 ---
 
 ## Features
-- **Live Sniffing**: Capture packets in real time.
+- **Live Sniffing**: Capture TCP,UDP,DNS,ARP,and ICMP Packets in real-time.
 - **Batch Smiffing**: Capture a set number of packets in batches.
-- **Protocol Filtering**: Capture only `TCP`, `UDP`, or all packets.
+- **Protocol Filtering**: Capture only `TCP`, `UDP`, or all packets using bactch Sniffing.
 - **Port Filtering**: Target a specific port or let it sniff freely.
 - **Custom Packet Limits**: Specify how many packets you want to capture.
 - **Timeout Control**: Set how long the sniffer will run if the packet count isn’t met.
