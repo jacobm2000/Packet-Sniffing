@@ -2,6 +2,7 @@
 
 A simple but effective network packet sniffer built with **Python**, **Scapy**, and **Pandas**.  
 This tool allows you to capture, filter, and summarize packets from your network, with optional port and protocol filtering and the ability to save captured data to a `.pcap` file.
+Packets can either be captured in batches with a summary shown after or live sniffing with output as packets are captured.
 
 ---
 
