@@ -1,5 +1,5 @@
 from scapy.all import *
-
+from sharedFunctions import twoValueInput
 def runLiveSniff():
     packets=[]
     count=0
@@ -19,12 +19,16 @@ def runLiveSniff():
                     print(f"[{count}][UDP] {pkt[IP].src}:{pkt[UDP].sport} -> {pkt[IP].dst}:{pkt[UDP].dport}")
             if DNS in pkt and pkt[DNS].qd is not None:
                   print(f"[DNS] {pkt[IP].src} -> {pkt[IP].dst} : {pkt[DNS].qd.qname.decode()}")
+                  
+    
+                  
     print("To Stop Sniffing Press Ctrl+C")
-    sniff(prn=packet_callback, filter="ip or arp", store=False)
+    sniff(prn=packet_callback, store=False)
     print(f"{count} packets captured")
     if(packets):
-        saveOrNot=input("Do you want to save the output to a pcap file Yes(Y) or No(N) \n")
-        if(saveOrNot.strip().lower()=="y"):
+        saveOrNot=twoValueInput("Do you want to save the output to a pcap file Yes(y) or No(n) \n"
+                                   ,"Please enter y for yes and n for no",'y','n')
+        if(saveOrNot=="y"):
             fName=input("What do you want to Name this File (Please input just file name with no extension)\n")
             wrpcap(f"pcaps/{fName}.pcap", packets)
             print("File Saved as pcaps/"+fName+".pcap")
