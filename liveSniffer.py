@@ -21,9 +21,18 @@ def runLiveSniff():
                   print(f"[DNS] {pkt[IP].src} -> {pkt[IP].dst} : {pkt[DNS].qd.qname.decode()}")
                   
     
+    filterOrNot=twoValueInput("Do you want to filter by a specific port yes(y) or no(n)\n"
+                              ,"Please enter either y for yes or n for no",'y','n')
                   
-    print("To Stop Sniffing Press Ctrl+C")
-    sniff(prn=packet_callback, store=False)
+  
+    if(filterOrNot=='n'):
+        print("To Stop Sniffing Press Ctrl+C")
+        sniff(prn=packet_callback, store=False)
+    else:
+        tu=twoValueInput("Choose udp or tcp for port type\n","Please type tcp or udp","tcp","udp")
+        portNum=input("Please enter the port number")
+        print(f'Sniffing {tu} Port {portNum}.To Stop Sniffing Press Ctrl+C')
+        sniff(prn=packet_callback,filter=f'{tu} port {portNum}',store=False)
     print(f"{count} packets captured")
     if(packets):
         saveOrNot=twoValueInput("Do you want to save the output to a pcap file Yes(y) or No(n) \n"
