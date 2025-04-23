@@ -28,18 +28,12 @@ def runBatchSniff():
              timeOut = int(userTimeout)
         else:
             timeOut=60
-            #Message that is shown when the packet sniffing process starts
+            #Tells the user that the packet sniffing process has begun and tells them about the timeout
         startMSG="Capturing packets, press crtl+C to abort.\n If The packet limit is not reached the packet capture will be aborted after " +str(timeOut) +" seconds"
         table=pd.DataFrame(columns=['Time','src','dst','flags','size(bytes)'])
         pd.set_option('display.max_rows', None) ## allows all rows of the table to be printed to output
         
-        #center aligns the column headers
-        # Center-align the headers and data
-        table.style.set_table_styles({
-            '': {'text-align': 'center'},  # Center the data
-            'th': {'text-align': 'center'}  # Center the headers
-        })
-        
+       
         if(pc.strip().lower()=="y"):
             
             #get wheather the user wants to use filter by tcp or udp
