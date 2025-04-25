@@ -9,7 +9,7 @@ def runLiveSniff():
      """
     packets=[]
     count=0
-    #Intializing counters for source and destination ports
+    #Intializing counters for source and destination ports. The counters will be used to track the most common ports
     srcPorts=Counter()
     dstPorts=Counter()
     def packet_callback(pkt):
@@ -43,12 +43,16 @@ def runLiveSniff():
     if(filterOrNot=='n'):
         print("To Stop Sniffing Press Ctrl+C")
         sniff(prn=packet_callback, store=False)
+        #gets the three most common source and destination ports found while sniffing
         mostCommonSrc=srcPorts.most_common(3)
         mostCommonDst=dstPorts.most_common(3)
+        
+        # if mostCommonSrc has entrys then iterate through them and output to the user
         if (mostCommonSrc):
             print("\n Most common source ports")
             for i in range(len(mostCommonSrc)):
                 print(f'#{i+1} Most frequent source port: {mostCommonSrc[i][0]} {mostCommonSrc[i][1]} times ')
+        # if mostCommonDst has entrys then iterate through them and output to the user
         if (mostCommonDst):
             print("\n Most destination source ports")
             for i in range(len(mostCommonDst)):
