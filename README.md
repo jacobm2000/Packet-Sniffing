@@ -35,4 +35,4 @@ Packets can either be captured in batches with a summary shown after the number 
 Run the script with:
 
 ```bash
-python main.py
+python snifferMain.py
